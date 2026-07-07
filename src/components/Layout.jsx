@@ -6,11 +6,16 @@ function Layout({ children }) {
     const navigate = useNavigate();
     const location = useLocation();
     const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         document.body.dataset.theme = theme;
         localStorage.setItem("theme", theme);
     }, [theme]);
+
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [location.pathname]);
 
     const logout = () => {
 
@@ -76,8 +81,12 @@ function Layout({ children }) {
     return (
 
         <div className="app-shell">
+            <div
+                className={`mobile-overlay ${isMobileMenuOpen ? "active" : ""}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+            />
 
-            <aside className="sidebar">
+            <aside className={`sidebar ${isMobileMenuOpen ? "open" : ""}`}>
 
                 <div className="sidebar-brand">
                     <div className="brand-icon">💰</div>
@@ -112,9 +121,18 @@ function Layout({ children }) {
             <main className="main-content">
 
                 <nav className="top-navbar">
-                    <div>
-                        <p className="text-muted mb-1">Welcome back</p>
-                        <h4 className="m-0 fw-bold">{menu.find((item) => item.path === location.pathname)?.name || "Dashboard"}</h4>
+                    <div className="top-navbar-title">
+                        <button
+                            className="mobile-menu-btn"
+                            onClick={() => setIsMobileMenuOpen(true)}
+                            aria-label="Open menu"
+                        >
+                            ☰
+                        </button>
+                        <div>
+                            <p className="text-muted mb-1">Welcome back</p>
+                            <h4 className="m-0 fw-bold">{menu.find((item) => item.path === location.pathname)?.name || "Dashboard"}</h4>
+                        </div>
                     </div>
 
                     <div className="top-navbar-actions">
