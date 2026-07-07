@@ -4,8 +4,10 @@ import "./App.css";
 import {
     Routes,
     Route,
-    Navigate
+    Navigate,
+    useLocation
 } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import Login from "./pages/Login";
 import Notifications from "./pages/Notifications";
@@ -23,10 +25,22 @@ import AIAdvisor from "./pages/AIAdvisor";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
+    const location = useLocation();
+    const [displayLocation, setDisplayLocation] = useState(location);
+    const [transitionStage, setTransitionStage] = useState("fadeIn");
+
+    useEffect(() => {
+        setTransitionStage("fadeOut");
+        const timeout = setTimeout(() => {
+            setDisplayLocation(location);
+            setTransitionStage("fadeIn");
+        }, 180);
+        return () => clearTimeout(timeout);
+    }, [location]);
 
     return (
-
-        <Routes>
+        <div className={`route-transition ${transitionStage}`}>
+            <Routes location={displayLocation}>
 
             <Route
                 path="/"
@@ -136,8 +150,8 @@ function App() {
                 element={<Navigate to="/login" replace />}
             />
 
-        </Routes>
-
+            </Routes>
+        </div>
     );
 
 }

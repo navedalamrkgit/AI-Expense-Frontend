@@ -82,37 +82,49 @@ function Register() {
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label className="form-label">Name</label>
-                            <input
-                                className="form-control auth-input"
-                                name="name"
-                                value={form.name}
-                                onChange={handleChange}
-                                required
-                            />
+                            <div className="auth-input-group">
+                                <span className="auth-input-icon">👤</span>
+                                <input
+                                    className="form-control auth-input"
+                                    name="name"
+                                    value={form.name}
+                                    onChange={handleChange}
+                                    placeholder="Enter your name"
+                                    required
+                                />
+                            </div>
                         </div>
 
                         <div className="mb-4">
                             <label className="form-label">Email</label>
-                            <input
-                                className="form-control auth-input"
-                                type="email"
-                                name="email"
-                                value={form.email}
-                                onChange={handleChange}
-                                required
-                            />
+                            <div className="auth-input-group">
+                                <span className="auth-input-icon">✉️</span>
+                                <input
+                                    className="form-control auth-input"
+                                    type="email"
+                                    name="email"
+                                    value={form.email}
+                                    onChange={handleChange}
+                                    placeholder="Enter your email"
+                                    required
+                                />
+                            </div>
                         </div>
 
                         <div className="mb-4">
                             <label className="form-label">Password</label>
-                            <input
-                                className="form-control auth-input"
-                                type="password"
-                                name="password"
-                                value={form.password}
-                                onChange={handleChange}
-                                required
-                            />
+                            <div className="auth-input-group">
+                                <span className="auth-input-icon">🔒</span>
+                                <input
+                                    className="form-control auth-input"
+                                    type="password"
+                                    name="password"
+                                    value={form.password}
+                                    onChange={handleChange}
+                                    placeholder="Create a password"
+                                    required
+                                />
+                            </div>
                         </div>
 
                         <button className="btn btn-primary w-100 py-3 fw-semibold auth-button">
